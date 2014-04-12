@@ -1,0 +1,30 @@
+<p>
+  <h3><%= @product.name %></h3>
+  <strong>Описание:</strong>
+  <%= @product.description %><br>
+</p>
+
+<br>
+
+<br>
+
+<p>Пожалуйста, оцените продукт по пятибалльной шкале</p>
+<div id="user_star">
+  <script>
+  $('#user_star').raty({
+    score: <%= @rating.score =%>,
+    path: '/assets',
+    click: function(score, evt) {
+      $.ajax({
+        url: '/ratings/rate',
+        type: 'POST',
+        data: { score: score , p1: <%= @rating.hash[0..7] =%>, p2: <%= @rating.hash[8..-1] =%>},
+      });
+    alert('Ваш голос учтен!');
+    }
+  });
+</script>
+</div>
+
+<%= link_to 'Назад', products_path %>
+<%= link_to 'Редактировать', edit_product_path(@product) %>

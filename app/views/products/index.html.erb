@@ -1,0 +1,33 @@
+<h1>Список продуктов</h1>
+ 
+<%= link_to 'Создать продукт', new_product_path %><br>
+<%= link_to 'Главная страница', root_path %><br><br>
+
+<%= form_tag(products_path, :method => "get", class: "navbar-form", id: "search-form") do %>
+    <div class="input-append">
+        <%= text_field_tag :search, params[:search], class: "span2", 
+            placeholder: "Введите описание"%>
+        <%= submit_tag "Искать", :name => nil %>
+    </div>
+<% end %>
+<%= yield %>
+
+<table>
+  <tr>
+    <th>Название</th>
+    <th>Описание</th>
+    <th>Средняя оценка</th>
+  </tr>
+ 
+  <% @products.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= product.description %></td>
+      <td><%= product.average_rating %></td>
+      <td><%= link_to 'Просмотреть', product_path(product) %></td>
+      <td><%= link_to 'Редактировать', edit_product_path(product) %></td>
+      <td><%= link_to 'Удалить', product_path(product),
+                    method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+    </tr>
+  <% end %>
+</table>

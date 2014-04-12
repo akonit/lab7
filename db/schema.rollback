@@ -1,0 +1,2 @@
+use lab7
+db.dropDatabase()

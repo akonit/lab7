@@ -1,0 +1,20 @@
+<h1>Список категорий продуктов</h1>
+ 
+<%= link_to 'Создать категорию', new_category_path %><br>
+<%= link_to 'Главная страница', root_path %><br><br>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+ 
+  <% @categories.each do |category| %>
+    <tr>
+      <td><%= category.name %></td>
+      <td><%= link_to 'Просмотреть', category_path(category) %></td>
+      <td><%= link_to 'Редактировать', edit_category_path(category) %></td>
+      <td><%= link_to 'Удалить', category_path(category),
+                    method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+    </tr>
+  <% end %>
+</table>
