@@ -18,6 +18,11 @@ class ProductsController < ApplicationController
 
     def show
 	    @product = Product.find(params[:id])
+	    @categories = Array.new
+	    @product.category_ids.each { |cid|
+        	@category = Category.find(cid)
+        	@categories << @category.name
+        }
 	    @rating = @product.ratings.where(:score => 0).first
 	    if @rating == nil
 		    @rating = Rating.new(score: 0)
@@ -51,6 +56,19 @@ class ProductsController < ApplicationController
 
 	def destroy
 	  	@product = Product.find(params[:id])
+
+        @product.category_ids.each { |cid|
+        	@category = Category.find(cid)
+    		n_p_ids = Array.new
+    	    @category.product_ids.each { |pid| 
+    		    if pid != @product.id.to_s
+    			    n_p_ids << pid
+    		    end 
+    		} 
+    		@category.product_ids = n_p_ids
+    	    @category.save
+    	}
+
 	  	@product.destroy
 	 
 	  	redirect_to products_path

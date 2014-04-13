@@ -1,0 +1,17 @@
+<h1>Новое назначение</h1>
+
+<%= form_tag links_create_path do %>
+  <p>
+    название_продукта<br>
+    <%= select_tag(:p_id, options_for_select(Product.all.collect {|p| [ p.name, p.id ] }), {:prompt => 'Select'}) %>
+  </p>
+
+  <p>
+    название_категории<br>
+    <%= select_tag(:c_id, options_for_select(Category.all.collect {|c| [ c.name, c.id ] }), {:prompt => 'Select'}) %>
+  </p>
+  
+  <div><%= submit_tag 'Назначить' %></div>
+  <% end %>
+
+<%= link_to 'Назад', links_path %>

@@ -1,0 +1,22 @@
+<h1>Назначение категорий продуктам</h1>
+ 
+<%= link_to 'Назначить категорию', new_link_path %><br>
+<%= link_to 'Главная страница', root_path %><br><br>
+
+<table>
+  <tr>
+    <th>Название продукта</th>
+    <th>Название категории</th>
+  </tr>
+ 
+  <% Product.all.each do |product| %>
+      <% product.category_ids.each do |c_id| %>
+	    <tr>
+	      <td><%= product.name %></td>
+	      <td><%= Category.find(c_id).name %></td>
+	      <td><%= link_to 'Удалить', links_destroy_path(p_id: product.id, c_id: c_id ),
+	                    method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+	    </tr>
+	  <% end %>
+  <% end %>
+</table>

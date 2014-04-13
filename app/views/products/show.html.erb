@@ -1,10 +1,12 @@
 <p>
   <h3><%= @product.name %></h3>
-  <strong>Описание:</strong>
+  <strong>Описание продукта:</strong>
   <%= @product.description %><br>
+  <strong>Категории:&nbsp;</strong>
+  <% @categories.each do |category| %>
+        <%= category %>&nbsp;&nbsp;
+  <% end %>
 </p>
-
-<br>
 
 <br>
 
@@ -25,6 +27,39 @@
   });
 </script>
 </div>
+
+<h2>Отзывы</h2>
+<% @product.opinions.each do |opinion| %>
+  <p>
+    <strong>Логин:</strong>
+    <%= opinion.login %>
+  </p>
+ 
+  <p>
+    <strong>Текст отзыва:</strong>
+    <%= opinion.text %><br>
+    <strong>Отзыв оставлен:</strong>
+    <%= opinion.created_at %>
+  </p>
+  --------------------------------------------
+<% end %>
+
+<br>
+<br>
+<h2>Оставить отзыв:</h2>
+<%= form_for([@product, @product.opinions.build]) do |f| %>
+  <p>
+    <%= f.label :логин %><br>
+    <%= f.text_field :login %>
+  </p>
+  <p>
+    <%= f.label :текст_отзыва %><br>
+    <%= f.text_area :text %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
 
 <%= link_to 'Назад', products_path %>
 <%= link_to 'Редактировать', edit_product_path(@product) %>

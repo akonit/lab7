@@ -41,6 +41,19 @@ class CategoriesController < ApplicationController
 
 	def destroy
 	  	@category = Category.find(params[:id])
+
+        @category.product_ids.each { |pid| 
+        	@product = Product.find(pid)
+    		n_c_ids = Array.new
+    	    @product.category_ids.each { |cid| 
+    		    if cid != @category.id.to_s
+    			    n_c_ids << cid
+    		    end 
+    		} 
+    		@product.category_ids = n_c_ids
+    	    @product.save
+    	}
+
 	  	@category.destroy
 	 
 	  	redirect_to categories_path

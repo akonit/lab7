@@ -14,6 +14,10 @@ Lab7::Application.routes.draw do
 
   resources :links
 
+  post 'links/create'
+
+  post 'links/destroy'
+
   post 'ratings/rate'
 
   # Example of regular route:

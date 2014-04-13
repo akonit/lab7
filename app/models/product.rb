@@ -5,6 +5,10 @@ class Product
 	key :description, String
 
 	many :ratings, :dependent => :destroy
+	many :opinions, :dependent => :destroy
+
+	key :category_ids, Array
+    many :categories, :in => :category_ids
 
 	validates_presence_of :name, :description
 
